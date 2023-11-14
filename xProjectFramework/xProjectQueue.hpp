@@ -79,6 +79,13 @@ namespace Xp {
 			std::lock_guard<std::mutex> lock(m_mutexQueue);
 			return m_dequeQueue.size(); 
 		}
+
+		void wait() {
+			while (empty()) {
+				std::unique_lock<std::mutex> lock(m_blockingQueue);
+				m_cvQueue.wait(lock);
+			}
+		}
 	};
 
 }

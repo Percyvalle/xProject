@@ -18,7 +18,7 @@ int main(int argv, char** argc) {
 	client.Connect("127.0.0.1", 20055);
 	client.PingServerMessage();
 
-	while (client.Incoming().empty()) {
+	while (true) {
 
 	}
 

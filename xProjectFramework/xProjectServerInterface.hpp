@@ -73,6 +73,21 @@ namespace Net {
 				}
 			);
 		}
+
+		void Update(bool _wait = false){
+			if (_wait) {
+				m_messageIn.wait();
+			}
+
+			while (!m_messageIn.empty()) {
+
+				OwnerMessage onwerMessage = m_messageIn.pop_back();
+
+				HandleMessage(onwerMessage.m_remoteConnection, onwerMessage.m_remoteMsg);
+			}
+		}
+
+		virtual void HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage) {}
 	};
 
 }

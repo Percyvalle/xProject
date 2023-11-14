@@ -7,7 +7,7 @@
 
 namespace Net 
 {
-	class Connection : std::enable_shared_from_this<Connection> {
+	class Connection : public std::enable_shared_from_this<Connection> {
 	public:
 		enum OwnerConnection {
 			Server,
@@ -134,7 +134,7 @@ namespace Net
 		void WriteBody(){}
 
 		void AddMessageToQueue() {
-			if (OwnerConnection::Server) {
+			if (m_owner == OwnerConnection::Server) {
 				m_messageIn.push_back({this->shared_from_this(), m_temporaryMessageIn});
 			}
 			else {
