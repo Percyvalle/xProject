@@ -75,6 +75,7 @@ namespace Net {
 		}
 
 		void Update(bool _wait = false){
+			
 			if (_wait) {
 				m_messageIn.wait();
 			}
@@ -88,6 +89,10 @@ namespace Net {
 		}
 
 		virtual void HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage) {}
+
+		virtual void HandleConnect() {}
+
+		virtual void HandleDisconnect() {}
 	};
 
 }

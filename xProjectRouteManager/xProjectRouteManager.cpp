@@ -18,5 +18,8 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 
 		_handleClient->Send(_handleMessage);
 		break;
+	case Net::MessageType::Registration:
+		spdlog::info("[Server] Handle Registration Message");
+		break;
 	}
 }

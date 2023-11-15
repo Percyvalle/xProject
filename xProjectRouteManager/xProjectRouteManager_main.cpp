@@ -30,6 +30,10 @@ void initConfig() {
 
 int main(int argv, char** argc) {
 
+#ifdef _DEBUG
+	spdlog::set_level(spdlog::level::debug);
+#endif // _DEBUG
+
 	boost::program_options::options_description routeManagerOptionsDescription;
 	routeManagerOptionsDescription.add_options()
 		("config_path", boost::program_options::value<std::string>()->required(), "* Config Path");
