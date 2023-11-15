@@ -9,4 +9,8 @@ public:
 	virtual ~RouteManager();
 
 	void HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage) override;
+
+	void HandleConnect(std::shared_ptr<Net::Connection> _handleClient) override;
+
+	void HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient) override;
 };

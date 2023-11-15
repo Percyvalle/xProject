@@ -61,6 +61,8 @@ namespace Net {
 						std::shared_ptr<Net::Connection> clientConnection = std::make_shared<Net::Connection>(
 							Net::Connection::OwnerConnection::Server, m_mainContext, std::move(_socket), m_messageIn);
 
+						HandleConnect(clientConnection);
+
 						m_connections.push_back(clientConnection);
 
 						clientConnection->ConnectToClient();
@@ -88,11 +90,35 @@ namespace Net {
 			}
 		}
 
+		void CheckConnectClients() {
+			if (m_connections.empty()) {
+				return;
+			}
+
+			bool invalidClientSocket = false;
+			for (std::shared_ptr<Net::Connection> client : m_connections) {
+				if (client != nullptr && client->IsConnected()) {
+					Net::Message pingMessage;
+					pingMessage.m_header.m_type = Net::MessageType::Ping;
+
+					client->Send(pingMessage);
+				}
+				else {
+					client.reset();
+					invalidClientSocket = true;
+				}
+
+				if (invalidClientSocket) {
+					m_connections.erase(std::remove(m_connections.begin(), m_connections.end(), nullptr), m_connections.end());
+				}
+			}
+		}
+
 		virtual void HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage) {}
 
-		virtual void HandleConnect() {}
+		virtual void HandleConnect(std::shared_ptr<Net::Connection> _handleClient) {}
 
-		virtual void HandleDisconnect() {}
+		virtual void HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient) {}
 	};
 
 }

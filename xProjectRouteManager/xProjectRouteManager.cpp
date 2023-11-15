@@ -23,3 +23,11 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		break;
 	}
 }
+
+void RouteManager::HandleConnect(std::shared_ptr<Net::Connection> _handleClient)
+{
+}
+
+void RouteManager::HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient)
+{
+}
