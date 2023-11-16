@@ -20,6 +20,17 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		break;
 	case Net::MessageType::Registration:
 		spdlog::info("[Server] Handle Registration Message");
+		
+		Net::Message responseMessage;
+
+		responseMessage.m_header.m_type = Net::MessageType::Registration;
+
+		SHA256 shaMessage;
+		shaMessage.update(_handleClient->getUuid().str());
+		responseMessage << SHA256::toString(shaMessage.digest()).c_str();
+		
+		_handleClient->Send(responseMessage);
+
 		break;
 	}
 }

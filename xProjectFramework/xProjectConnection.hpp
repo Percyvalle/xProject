@@ -7,6 +7,8 @@
 
 namespace Net 
 {
+	static UUIDv4::UUIDGenerator<std::mt19937_64> uuidGenerator;
+
 	class Connection : public std::enable_shared_from_this<Connection> {
 	public:
 		enum OwnerConnection {
@@ -24,6 +26,8 @@ namespace Net
 		Net::Message m_temporaryMessageIn;
 
 		OwnerConnection m_owner;
+
+		UUIDv4::UUID uuid = uuidGenerator.getUUID();
 	public:
 		Connection(OwnerConnection _owner, boost::asio::io_context& _context,
 				   boost::asio::ip::tcp::socket _socket, Xp::Queue<Net::OwnerMessage>& _messageIn)
@@ -31,6 +35,10 @@ namespace Net
 		{}
 
 		virtual ~Connection(){}
+
+		const UUIDv4::UUID& getUuid() const {
+			return uuid;
+		}
 
 		void ConnectToClient()
 		{

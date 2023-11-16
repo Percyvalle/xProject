@@ -2,8 +2,12 @@
 
 #include "xProjectServerInterface.hpp"
 
+#include <sha256/SHA256.h>
+
 class RouteManager : public Net::ServerInterface {
 private:
+	std::unordered_set<std::shared_ptr<Net::Connection>> m_availableÑlients;
+
 public:
 	RouteManager(const std::string& _address, const uint16_t _port);
 	virtual ~RouteManager();

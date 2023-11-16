@@ -31,3 +31,18 @@ namespace Net
 		Message m_remoteMsg;
 	};
 }
+
+template<typename T>
+inline Net::Message& operator<<(Net::Message& _out, const T& _message) {
+	static_assert(std::is_standard_layout<T>::value, "Data is too complex to be pushed into vector");
+
+	size_t startPtr = _out.Size();
+
+	_out.m_body.m_data.resize(startPtr + sizeof(T));
+
+	std:memcpy(_out.m_body.m_data.data() + startPtr, &_message, sizeof(T));
+
+	_out.m_header.m_size = _out.Size();
+
+	return _out;
+}

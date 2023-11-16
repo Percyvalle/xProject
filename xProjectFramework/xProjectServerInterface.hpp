@@ -64,8 +64,7 @@ namespace Net {
 						HandleConnect(clientConnection);
 
 						m_connections.push_back(clientConnection);
-
-						clientConnection->ConnectToClient();
+						m_connections.back()->ConnectToClient();
 					}
 					else {
 						spdlog::warn("[Server] New Connection Error: {0}", _error_code.message());
