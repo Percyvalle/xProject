@@ -95,11 +95,11 @@ namespace Net
 				{
 					if (!_error_code) {
 						
-						spdlog::info("Read Header Done | Type: {0}", std::to_string(m_temporaryMessageIn.m_header.m_type));
+						spdlog::debug("Read Header Done | Type: {0}", std::to_string(m_temporaryMessageIn.m_header.m_type));
 
 						if (m_temporaryMessageIn.m_header.m_size > 0) {
 							m_temporaryMessageIn.m_body.m_data.resize(m_temporaryMessageIn.m_header.m_size);
-							//ReadBody();
+							ReadBody();
 						}
 						else {
 							AddMessageToQueue();
@@ -107,24 +107,47 @@ namespace Net
 					}
 					else {
 						spdlog::warn("Read Header Error: {0}", _error_code.message());
-						spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
 						Disconnect();
 					}
 				}
 			);
 		}
-		void ReadBody(){}
+		void ReadBody(){
+			
+			boost::asio::async_read(m_conSocket, boost::asio::buffer(&m_temporaryMessageIn.m_body.m_data, m_temporaryMessageIn.Size()),
+				[this](boost::system::error_code _error_code, std::size_t length)
+				{
+					if (!_error_code) {
+#ifdef _DEBUG
+						std::string tempMessage;
+						tempMessage.resize(m_temporaryMessageIn.Size());
+						std::memcpy(tempMessage.data(), m_temporaryMessageIn.m_body.m_data.data(), m_temporaryMessageIn.Size());
+
+						spdlog::debug("Read Body Done | Message: {0}", tempMessage);
+#endif // _DEBUG
+
+						AddMessageToQueue();
+					}
+					else {
+						spdlog::warn("Read Header Error: {0}", _error_code.message());
+						spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						Disconnect();
+					}					
+				}
+			);
+		}
 
 		void WriteHeader(){
-			boost::asio::async_write(m_conSocket, boost::asio::buffer(&m_messageOut.back().m_header, sizeof(Net::MessageHeader)), 
+			boost::asio::async_write(m_conSocket, boost::asio::buffer(&m_messageOut.front().m_header, sizeof(Net::MessageHeader)),
 				[this](boost::system::error_code _error_code, std::size_t _length)
 				{
 					if (!_error_code) {
-						if (m_messageOut.back().Size() > 0) {
-							//WriteBody();
+						if (m_messageOut.front().Size() > 0) {
+							WriteBody();
 						}
 						else {
-							m_messageOut.pop_back();
+							m_messageOut.pop_front();
 
 							if (!m_messageOut.empty()) {
 								WriteHeader();
@@ -139,7 +162,25 @@ namespace Net
 				}
 			);
 		}
-		void WriteBody(){}
+		void WriteBody(){
+			boost::asio::async_write(m_conSocket, boost::asio::buffer(&m_messageOut.front().m_body.m_data, m_messageOut.front().Size()),
+				[this](boost::system::error_code _error_code, std::size_t length)
+				{
+					if (!_error_code) {
+						m_messageOut.pop_front();
+
+						if (!m_messageOut.empty()) {
+							WriteHeader();
+						}
+					}
+					else {
+						spdlog::warn("Write Body Error: {0}", _error_code.message());
+						spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						Disconnect();
+					}
+				}
+			);
+		}
 
 		void AddMessageToQueue() {
 			if (m_owner == OwnerConnection::Server) {
