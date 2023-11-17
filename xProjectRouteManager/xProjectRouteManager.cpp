@@ -27,11 +27,13 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 
 		SHA256 shaMessage;
 		shaMessage.update(_handleClient->getUuid().str());
-		responseMessage << SHA256::toString(shaMessage.digest()).c_str();
+
+		std::string shaMessageString = SHA256::toString(shaMessage.digest());
+		responseMessage << shaMessageString;
 
 #ifdef _DEBUG
 		spdlog::debug("UUID: {0}", _handleClient->getUuid().str());
-		spdlog::debug("SHA256: {0}", SHA256::toString(shaMessage.digest()));
+		spdlog::debug("SHA256: {0}", shaMessageString);
 #endif // DEBUG
 
 		_handleClient->Send(responseMessage);

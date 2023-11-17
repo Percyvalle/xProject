@@ -115,7 +115,7 @@ namespace Net
 		}
 		void ReadBody(){
 			
-			boost::asio::async_read(m_conSocket, boost::asio::buffer(&m_temporaryMessageIn.m_body.m_data, m_temporaryMessageIn.Size()),
+			boost::asio::async_read(m_conSocket, boost::asio::buffer(m_temporaryMessageIn.m_body.m_data.data(), m_temporaryMessageIn.Size()),
 				[this](boost::system::error_code _error_code, std::size_t length)
 				{
 					if (!_error_code) {
@@ -163,7 +163,7 @@ namespace Net
 			);
 		}
 		void WriteBody(){
-			boost::asio::async_write(m_conSocket, boost::asio::buffer(&m_messageOut.front().m_body.m_data, m_messageOut.front().Size()),
+			boost::asio::async_write(m_conSocket, boost::asio::buffer(m_messageOut.front().m_body.m_data.data(), m_messageOut.front().Size()),
 				[this](boost::system::error_code _error_code, std::size_t length)
 				{
 					if (!_error_code) {

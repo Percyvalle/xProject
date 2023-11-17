@@ -46,3 +46,16 @@ inline Net::Message& operator<<(Net::Message& _out, const T& _message) {
 
 	return _out;
 }
+
+template<>
+inline Net::Message& operator<<(Net::Message& _out, const std::string& _message) {
+	size_t startPtr = _out.Size();
+
+	_out.m_body.m_data.resize(startPtr + _message.size());
+
+std:memcpy(_out.m_body.m_data.data() + startPtr, _message.data(), _message.size());
+
+	_out.m_header.m_size = _out.Size();
+
+	return _out;
+}
