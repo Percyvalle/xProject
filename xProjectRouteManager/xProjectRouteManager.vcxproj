@@ -76,13 +76,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\goman\Desktop\xProject\3dpart\include;C:\Users\goman\Desktop\xProject\xProjectFramework</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3dpart\include;$(SolutionDir)xProjectFramework</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\goman\Desktop\xProject\3dpart\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3dpart\libs</AdditionalLibraryDirectories>
       <AdditionalDependencies>sha256_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\goman\Desktop\xProject\3dpart\include;C:\Users\goman\Desktop\xProject\xProjectFramework</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3dpart\include;$(SolutionDir)xProjectFramework</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -102,7 +102,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\goman\Desktop\xProject\3dpart\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3dpart\libs</AdditionalLibraryDirectories>
       <AdditionalDependencies>sha256.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -113,12 +113,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\goman\Desktop\xProject\3dpart\include;C:\Users\goman\Desktop\xProject\xProjectFramework</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3dpart\include;$(SolutionDir)xProjectFramework</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\goman\Desktop\xProject\3dpart\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3dpart\libs</AdditionalLibraryDirectories>
       <AdditionalDependencies>sha256_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\goman\Desktop\xProject\3dpart\include;C:\Users\goman\Desktop\xProject\xProjectFramework</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3dpart\include;$(SolutionDir)xProjectFramework</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -138,7 +138,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\goman\Desktop\xProject\3dpart\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3dpart\libs</AdditionalLibraryDirectories>
       <AdditionalDependencies>sha256.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

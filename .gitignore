@@ -16,13 +16,16 @@
 # Mono auto generated files
 mono_crash.*
 
+# Don't ignore 3dpart
+!./3dpart/*
+
 # Build results
-[D]ebug/
+[Dd]ebug/
 [Dd]ebugPublic/
-[R]elease/
+[Rr]elease/
 [Rr]eleases/
-./x64/
-./x86/
+x64/
+x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
