@@ -6,7 +6,6 @@
 class Blockchain {
 public:
 	enum StateBlockchain {
-		UNDEFINE,
 		GENESIS,
 		JOIN
 	};
@@ -16,6 +15,9 @@ private:
 
 public:
 
-	void initBlockchain(StateBlockchain _state = StateBlockchain::UNDEFINE);
+	void initBlockchain(StateBlockchain _state);
 
+	void createBlock();
+
+	void isValid();
 };
