@@ -21,4 +21,9 @@ private:
 
 	std::vector<Transaction> m_transactisonList;
 public:
+
+	TransactionBlock(int _version, int _difficulty, std::string _prevblockHash, std::string m_timeMarkBlock, std::vector<Transaction> _data);
+
+	const std::string getHash() const;
+	const std::string getPrevHash() const;
 };

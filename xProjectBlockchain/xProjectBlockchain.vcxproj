@@ -147,6 +147,7 @@
     <ClCompile Include="xProjectBlockchain.hpp" />
     <ClCompile Include="xProjectBlockchainHeaders_common.hpp" />
     <ClCompile Include="xProjectBlockchain_main.cpp" />
+    <ClCompile Include="xProjectTransactionBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xProjectTransaction.hpp" />

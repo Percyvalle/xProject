@@ -11,7 +11,7 @@ public:
 	};
 
 private:
-	std::list<TransactionBlock> m_data;
+	std::vector<TransactionBlock> m_data;
 
 public:
 
@@ -19,5 +19,5 @@ public:
 
 	void createBlock();
 
-	void isValid();
+	bool isValid();
 };
