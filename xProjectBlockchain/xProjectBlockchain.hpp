@@ -15,9 +15,11 @@ private:
 
 public:
 
-	void initBlockchain(StateBlockchain _state);
+	static std::string miningHash();
 
-	void createBlock();
+	bool initBlockchain(StateBlockchain _state);
 
-	bool isValid();
+	bool createBlock();
+
+	bool isValid() const;
 };

@@ -1,7 +1,10 @@
-#include <iostream>
+
+#include "xProjectBlockchain.hpp"
 
 int main(int argv, char** argc) {
-	std::cout << "Hello world";
+
+	Blockchain blockchain;
+	blockchain.initBlockchain(Blockchain::StateBlockchain::GENESIS);
 
 	return EXIT_SUCCESS;
 }
