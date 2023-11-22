@@ -19,10 +19,11 @@ private:
 		merkle::Tree m_transactionHashes;
 	} m_headerTransactionBlock;
 
+	SHA256 m_shaGenerate;
 	std::vector<Transaction> m_transactisonList;
 public:
 
-	TransactionBlock(int _version, int _difficulty, std::string _prevblockHash, std::string m_timeMarkBlock, std::vector<Transaction> _data);
+	TransactionBlock(int _version, int _difficulty, std::string _prevblockHash, std::string m_timeMarkBlock, std::vector<Transaction> _data = {});
 
 	const std::string getHash() const;
 	const std::string getPrevHash() const;

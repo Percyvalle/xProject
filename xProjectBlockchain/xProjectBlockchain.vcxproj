@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="xProjectTransaction.hpp" />
     <ClInclude Include="xProjectTransactionBlock.hpp" />
+    <ClInclude Include="xProjectTransactionsPool.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
