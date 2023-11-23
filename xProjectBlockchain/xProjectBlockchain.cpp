@@ -1,8 +1,8 @@
 #include "xProjectBlockchain.hpp"
 
-std::string Blockchain::miningHash()
+std::string Blockchain::currentDataTime()
 {
-	return std::string();
+	return boost::posix_time::to_simple_string(boost::posix_time::microsec_clock::universal_time());
 }
 
 void Blockchain::addInTransactionsPool(const Transaction& _transaction)
@@ -10,13 +10,23 @@ void Blockchain::addInTransactionsPool(const Transaction& _transaction)
 	m_tempTransactionsPool.m_transactionsPoolData.push_back(_transaction);
 }
 
+void Blockchain::setTransactionsPool(const std::vector<Transaction>& _transactionsPool)
+{
+	m_tempTransactionsPool.m_transactionsPoolData.resize(_transactionsPool.size());
+	memcpy(m_tempTransactionsPool.m_transactionsPoolData.data(), _transactionsPool.data(), sizeof(Transaction) * _transactionsPool.size());
+}
+
 bool Blockchain::initBlockchain(StateBlockchain _state)
 {
 	switch (_state)
 	{
-	case Blockchain::GENESIS:
+	case Blockchain::StateBlockchain::GENESIS:
+		// Temporary
+		m_tempTransactionsPool.m_transactionsPoolData.emplace_back();
+		
+		addBlock(1, 1, std::string(63, '0') + '1', std::string(63, '0') + '1', currentDataTime());
 		break;
-	case Blockchain::JOIN:
+	case Blockchain::StateBlockchain::JOIN:
 		break;
 	default:
 		return false;
@@ -25,14 +35,14 @@ bool Blockchain::initBlockchain(StateBlockchain _state)
 	return true;
 }
 
-bool Blockchain::addBlock(const int& _difficulty, const std::string& _prevblockHash, const std::string& m_timeMarkBlock)
+bool Blockchain::addBlock(const uint32_t& _version, const uint32_t& _difficulty, const std::string& _hashBlock, const std::string& _prevblockHash, const std::string& m_timeMarkBlock)
 {
 	if (m_tempTransactionsPool.m_transactionsPoolData.size() == 0)
 	{
 		return false;
 	}
 
-	m_data.emplace_back(_difficulty, _prevblockHash, m_timeMarkBlock, m_tempTransactionsPool.m_transactionsPoolData);
+	m_data.emplace_back(_version, _difficulty, _hashBlock, _prevblockHash, m_timeMarkBlock, m_tempTransactionsPool.m_transactionsPoolData);
 	return true;
 }
 

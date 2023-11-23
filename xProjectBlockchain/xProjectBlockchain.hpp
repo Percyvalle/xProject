@@ -18,11 +18,13 @@ private:
 
 public:
 
-	static std::string miningHash();
-
-	bool addBlock(const int& _difficulty,const std::string& _prevblockHash,const std::string& m_timeMarkBlock);
+	static inline std::string currentDataTime();
 
 	void addInTransactionsPool(const Transaction& _transaction);
+
+	void setTransactionsPool(const std::vector<Transaction>& _transactionsPool);
+
+	bool addBlock(const uint32_t& _version, const uint32_t& _difficulty, const std::string& _hashBlock, const std::string& _prevblockHash, const std::string& m_timeMarkBlock);
 
 	bool initBlockchain(StateBlockchain _state);
 
