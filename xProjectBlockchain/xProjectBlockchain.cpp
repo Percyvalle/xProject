@@ -24,7 +24,7 @@ bool Blockchain::initBlockchain(StateBlockchain _state)
 		// Temporary
 		m_tempTransactionsPool.m_transactionsPoolData.emplace_back();
 		
-		addBlock(1, 1, std::string(63, '0') + '1', std::string(63, '0') + '1', currentDataTime());
+		addBlock(1, 4, std::string(63, '0') + '1', currentDataTime());
 		break;
 	case Blockchain::StateBlockchain::JOIN:
 		break;
@@ -35,18 +35,24 @@ bool Blockchain::initBlockchain(StateBlockchain _state)
 	return true;
 }
 
-bool Blockchain::addBlock(const uint32_t& _version, const uint32_t& _difficulty, const std::string& _hashBlock, const std::string& _prevblockHash, const std::string& m_timeMarkBlock)
+bool Blockchain::addBlock(const uint32_t& _version, const uint32_t& _difficulty, const std::string& _prevblockHash, const std::string& _timeMarkBlock)
 {
 	if (m_tempTransactionsPool.m_transactionsPoolData.size() == 0)
 	{
 		return false;
 	}
+	
+	TransactionBlock block(_version, _difficulty, _prevblockHash, _timeMarkBlock, m_tempTransactionsPool.m_transactionsPoolData);
+	Utils::miningHash(block);
+	block.printBlock();
 
-	m_data.emplace_back(_version, _difficulty, _hashBlock, _prevblockHash, m_timeMarkBlock, m_tempTransactionsPool.m_transactionsPoolData);
+
+	m_data.push_back(block);
+
 	return true;
 }
 
-bool Blockchain::isValid() const
+bool Blockchain::isValid()
 {
 	for (int i = 1; i < m_data.size(); i++) {
 		if (m_data[i].getPrevHash() != m_data[i - 1].getHash()) {
