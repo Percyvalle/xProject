@@ -145,13 +145,19 @@
   <ItemGroup>
     <ClCompile Include="xProjectBlockchain.cpp" />
     <ClCompile Include="xProjectBlockchain.hpp" />
+    <ClCompile Include="xProjectBlockchainClient.cpp" />
     <ClCompile Include="xProjectBlockchainHeaders_common.hpp" />
+    <ClCompile Include="xProjectBlockchainServer.cpp" />
     <ClCompile Include="xProjectBlockchain_main.cpp" />
     <ClCompile Include="xProjectMiner.cpp" />
+    <ClCompile Include="xProjectPeer.cpp" />
     <ClCompile Include="xProjectTransactionBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="xProjectBlockchainClient.hpp" />
+    <ClInclude Include="xProjectBlockchainServer.h" />
     <ClInclude Include="xProjectMiner.hpp" />
+    <ClInclude Include="xProjectPeer.h" />
     <ClInclude Include="xProjectTransaction.hpp" />
     <ClInclude Include="xProjectTransactionBlock.hpp" />
     <ClInclude Include="xProjectTransactionsPool.hpp" />
