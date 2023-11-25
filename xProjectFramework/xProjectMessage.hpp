@@ -6,11 +6,12 @@ namespace Net
 {
 	enum MessageType {
 		Registration,
-		Ping,
+		PingRequest,
+		PingResponse
 	};
 
 	struct MessageHeader {
-		MessageType m_type = MessageType::Ping;
+		MessageType m_type = MessageType::PingRequest;
 		uint32_t m_size = 0;
 	};
 
@@ -23,6 +24,20 @@ namespace Net
 		MessageBody m_body;
 
 		uint32_t Size() { return m_body.m_data.size(); }
+
+		MessageType Type() { return m_header.m_type; }
+
+		std::string getStr() {
+			if (m_body.m_data.size() > 0) {
+				std::string ret;
+				ret.resize(m_body.m_data.size());
+				memcpy(ret.data(), m_body.m_data.data(), m_body.m_data.size());
+
+				return ret;
+			}
+
+			return "";
+		}
 	};
 
 	class Connection;

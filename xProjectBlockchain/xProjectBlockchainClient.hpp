@@ -2,11 +2,14 @@
 
 #include "xProjectClientInterface.hpp"
 #include "xProjectHeaders_common.hpp"
+#include "xProjectMessage.hpp"
 
-class BlockchainClient : Net::ClientInterface 
+class BlockchainClient : public Net::ClientInterface 
 {
 private:
 	UUIDv4::UUID m_uuid;	
 
 public:
+
+	void pingServer();
 };

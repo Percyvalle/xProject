@@ -62,10 +62,10 @@
     <ClInclude Include="xProjectBlockchainClient.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="xProjectBlockchainServer.h">
+    <ClInclude Include="xProjectBlockchainServer.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="xProjectPeer.h">
+    <ClInclude Include="xProjectPeer.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

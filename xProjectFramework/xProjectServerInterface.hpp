@@ -98,7 +98,7 @@ namespace Net {
 			for (std::shared_ptr<Net::Connection> client : m_connections) {
 				if (client != nullptr && client->IsConnected()) {
 					Net::Message pingMessage;
-					pingMessage.m_header.m_type = Net::MessageType::Ping;
+					pingMessage.m_header.m_type = Net::MessageType::PingRequest;
 
 					client->Send(pingMessage);
 				}

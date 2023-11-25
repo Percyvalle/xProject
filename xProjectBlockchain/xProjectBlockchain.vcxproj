@@ -155,9 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xProjectBlockchainClient.hpp" />
-    <ClInclude Include="xProjectBlockchainServer.h" />
+    <ClInclude Include="xProjectBlockchainServer.hpp" />
     <ClInclude Include="xProjectMiner.hpp" />
-    <ClInclude Include="xProjectPeer.h" />
+    <ClInclude Include="xProjectPeer.hpp" />
     <ClInclude Include="xProjectTransaction.hpp" />
     <ClInclude Include="xProjectTransactionBlock.hpp" />
     <ClInclude Include="xProjectTransactionsPool.hpp" />

@@ -6,7 +6,7 @@ private:
 public:
 	void TestPingServerMessage() {
 		Net::Message messageServer;
-		messageServer.m_header.m_type = Net::MessageType::Ping;
+		messageServer.m_header.m_type = Net::MessageType::PingRequest;
 
 		Send(messageServer);
 	}

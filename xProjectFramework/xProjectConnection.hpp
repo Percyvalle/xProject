@@ -120,11 +120,7 @@ namespace Net
 				{
 					if (!_error_code) {
 #ifdef _DEBUG
-						std::string tempMessage;
-						tempMessage.resize(m_temporaryMessageIn.Size());
-						std::memcpy(tempMessage.data(), m_temporaryMessageIn.m_body.m_data.data(), m_temporaryMessageIn.Size());
-
-						spdlog::debug("Read Body Done | Message: {0}", tempMessage);
+						spdlog::debug("Read Body Done | Message: {0}", m_temporaryMessageIn.getStr());
 #endif // _DEBUG
 
 						AddMessageToQueue();

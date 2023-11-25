@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_set>
+#include <functional>
 #include <iostream>
 #include <cstring>
 #include <memory>

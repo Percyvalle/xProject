@@ -11,18 +11,19 @@ RouteManager::~RouteManager()
 
 void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage)
 {
+	Net::Message responseMessage;
 	switch (_handleMessage.m_header.m_type)
 	{
-	case Net::MessageType::Ping:
+	case Net::MessageType::PingRequest:
 		spdlog::info("[Server] Handle Ping Message");
 
-		_handleClient->Send(_handleMessage);
+		responseMessage.m_header.m_type = Net::MessageType::PingResponse;
+		responseMessage << "Ping OK!";
+
 		break;
 	case Net::MessageType::Registration:
 		spdlog::info("[Server] Handle Registration Message");
 		
-		Net::Message responseMessage;
-
 		responseMessage.m_header.m_type = Net::MessageType::Registration;
 
 		SHA256 shaMessage;
@@ -36,10 +37,10 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		spdlog::debug("SHA256: {0}", m_availableÑlients[_handleClient]);
 #endif // DEBUG
 
-		_handleClient->Send(responseMessage);
-
 		break;
 	}
+
+	_handleClient->Send(responseMessage);
 }
 
 void RouteManager::HandleConnect(std::shared_ptr<Net::Connection> _handleClient)
