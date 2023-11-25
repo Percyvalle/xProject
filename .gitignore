@@ -17,7 +17,9 @@
 mono_crash.*
 
 # Don't ignore 3dpart
-!./3dpart/*
+!./3dpart/include/*
+!./3dpart/libs/Debug/*
+!./3dpart/libs/Release/*
 
 # Build results
 [Dd]ebug/
