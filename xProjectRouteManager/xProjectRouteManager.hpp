@@ -6,7 +6,10 @@
 
 class RouteManager : public Net::ServerInterface {
 private:
-	std::unordered_map<std::shared_ptr<Net::Connection>, std::string> m_availableÑlients;
+	std::unordered_map<std::shared_ptr<Net::Connection>, std::string> m_availableÑlientsMap;
+	
+	// Temporary
+	std::vector<std::shared_ptr<Net::Connection>> m_availableÑlientsVec;
 
 public:
 	explicit RouteManager(const std::string& _address, const uint16_t _port);

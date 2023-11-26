@@ -15,5 +15,7 @@ public:
 
 	void RegistrationServer();
 
+	void GetPeerAddress();
+
 	void SetUUID(std::string _uuid);
 };

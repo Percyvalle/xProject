@@ -18,6 +18,7 @@ int main(int argv, char** argc) {
 	client.Connect("127.0.0.1", 20055);
 	client.PingServer();
 	client.RegistrationServer();
+	client.GetPeerAddress();
 
 	while (true)
 	{
@@ -26,14 +27,15 @@ int main(int argv, char** argc) {
 
 				Net::Message message = client.Incoming().pop_back().m_remoteMsg;
 
+				spdlog::info("{0}", message.getStr());
 				switch (message.Type())
 				{
 				case Net::MessageType::PingResponse:
-					spdlog::info("{0}", message.getStr());
 					break;
 				case Net::MessageType::RegistrationResponse:
-					spdlog::info("{0}", message.getStr());
 					client.SetUUID(message.getStr());
+					break;
+				case Net::MessageType::GetPeerResponse:
 					break;
 				}
 

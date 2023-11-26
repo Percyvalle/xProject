@@ -7,6 +7,8 @@ namespace Net {
 		RegistrationRequest,
 		RegistrationResponse,
 		PingRequest,
-		PingResponse
+		PingResponse,
+		GetPeerRequest,
+		GetPeerResponse
 	};
 }

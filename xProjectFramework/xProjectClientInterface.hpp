@@ -66,7 +66,7 @@ namespace Net {
 			}
 		}
 
-		void HandleMessage(std::function<void()> _callback, MessageType _type) {
+		void AddHandleMessage(std::function<void()> _callback, MessageType _type) {
 			m_callbackMap[_type] = _callback;
 		}
 

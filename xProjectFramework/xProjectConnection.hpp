@@ -88,6 +88,14 @@ namespace Net
 			);
 		}
 
+		std::string getAddress() {
+			return m_conSocket.local_endpoint().address().to_string();
+		}
+
+		uint16_t getPort() {
+			return m_conSocket.local_endpoint().port();
+		}
+
 	private:
 
 		void ReadHeader(){
