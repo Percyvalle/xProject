@@ -11,5 +11,9 @@ private:
 
 public:
 
-	void pingServer();
+	void PingServer();
+
+	void RegistrationServer();
+
+	void SetUUID(std::string _uuid);
 };

@@ -21,16 +21,16 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		responseMessage << "Ping OK!";
 
 		break;
-	case Net::MessageType::Registration:
+	case Net::MessageType::RegistrationRequest:
 		spdlog::info("[Server] Handle Registration Message");
 		
-		responseMessage.m_header.m_type = Net::MessageType::Registration;
+		responseMessage.m_header.m_type = Net::MessageType::RegistrationResponse;
 
 		SHA256 shaMessage;
 		shaMessage.update(_handleClient->getUuid().str());
 
 		m_availableÑlients[_handleClient] = SHA256::toString(shaMessage.digest());
-		responseMessage << m_availableÑlients[_handleClient];
+		responseMessage << _handleClient->getUuid().str();
 
 #ifdef _DEBUG
 		spdlog::debug("UUID: {0}", _handleClient->getUuid().str());

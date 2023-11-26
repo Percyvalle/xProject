@@ -27,6 +27,7 @@ namespace Net
 
 		OwnerConnection m_owner;
 
+		// Temporary
 		UUIDv4::UUID uuid = uuidGenerator.getUUID();
 	public:
 		Connection(OwnerConnection _owner, boost::asio::io_context& _context,

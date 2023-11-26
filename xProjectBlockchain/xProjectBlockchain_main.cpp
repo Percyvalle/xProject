@@ -16,7 +16,8 @@ int main(int argv, char** argc) {
 	
 	BlockchainClient client;
 	client.Connect("127.0.0.1", 20055);
-	client.pingServer();
+	client.PingServer();
+	client.RegistrationServer();
 
 	while (true)
 	{
@@ -29,6 +30,10 @@ int main(int argv, char** argc) {
 				{
 				case Net::MessageType::PingResponse:
 					spdlog::info("{0}", message.getStr());
+					break;
+				case Net::MessageType::RegistrationResponse:
+					spdlog::info("{0}", message.getStr());
+					client.SetUUID(message.getStr());
 					break;
 				}
 

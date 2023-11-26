@@ -13,7 +13,7 @@ public:
 
 	void TestRegistrationServerMessage() {
 		Net::Message messageServer;
-		messageServer.m_header.m_type = Net::MessageType::Registration;
+		messageServer.m_header.m_type = Net::MessageType::RegistrationRequest;
 
 		Send(messageServer);
 	}

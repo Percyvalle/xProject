@@ -1,14 +1,10 @@
 #pragma once
 
 #include "xProjectHeaders_common.hpp"
+#include "xProjectMessageType.hpp"
 
 namespace Net 
 {
-	enum MessageType {
-		Registration,
-		PingRequest,
-		PingResponse
-	};
 
 	struct MessageHeader {
 		MessageType m_type = MessageType::PingRequest;
