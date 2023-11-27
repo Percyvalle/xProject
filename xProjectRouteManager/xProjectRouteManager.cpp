@@ -12,7 +12,6 @@ RouteManager::~RouteManager()
 void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage)
 {
 	Net::Message responseMessage;
-	SHA256 shaMessage;
 
 	switch (_handleMessage.m_header.m_type)
 	{
@@ -28,16 +27,8 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		
 		responseMessage.m_header.m_type = Net::MessageType::RegistrationResponse;
 
-		shaMessage.update(_handleClient->getUuid().str());
-
-		m_availableÑlientsMap[_handleClient] = SHA256::toString(shaMessage.digest());
+		// Temporary
 		m_availableÑlientsVec.push_back(_handleClient);
-		responseMessage << _handleClient->getUuid().str();
-
-#ifdef _DEBUG
-		spdlog::debug("UUID: {0}", _handleClient->getUuid().str());
-		spdlog::debug("SHA256: {0}", m_availableÑlientsMap[_handleClient]);
-#endif // DEBUG
 
 		break;
 	case Net::MessageType::GetPeerRequest:
@@ -48,8 +39,8 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 		if (m_availableÑlientsVec.size() > 1) {
 			// Temporary (Convert to JSON)
 			for (std::shared_ptr<Net::Connection> i : m_availableÑlientsVec) {
-				if (i->getUuid() != _handleClient->getUuid()) {
-					responseMessage << i->getAddress() << ":" << i->getPort();
+				if (i->getPort() != _handleClient->getPort()) {
+					responseMessage << i->getAddress() << ":" << std::to_string(i->getPort());
 				}
 			}
 		}

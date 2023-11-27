@@ -33,7 +33,6 @@ int main(int argv, char** argc) {
 				case Net::MessageType::PingResponse:
 					break;
 				case Net::MessageType::RegistrationResponse:
-					client.SetUUID(message.getStr());
 					break;
 				case Net::MessageType::GetPeerResponse:
 					break;

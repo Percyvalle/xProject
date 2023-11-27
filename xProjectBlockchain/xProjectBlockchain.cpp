@@ -24,7 +24,7 @@ bool Blockchain::initBlockchain(StateBlockchain _state)
 		// Temporary
 		m_tempTransactionsPool.m_transactionsPoolData.emplace_back();
 		
-		addBlock(1, 4, std::string(63, '0') + '1', currentDataTime());
+		addBlock(1, 1, std::string(63, '0') + '1', currentDataTime());
 		break;
 	case Blockchain::StateBlockchain::JOIN:
 		break;

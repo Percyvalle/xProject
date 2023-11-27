@@ -1,5 +1,11 @@
 #include "xProjectBlockchainClient.hpp"
 
+BlockchainClient::BlockchainClient()
+{
+	GeneratePublicKey();
+	GeneratePrivateKey();
+}
+
 void BlockchainClient::PingServer()
 {
 	Net::Message messageServer;
@@ -25,7 +31,16 @@ void BlockchainClient::GetPeerAddress()
 	Send(messageServer);
 }
 
-void BlockchainClient::SetUUID(std::string _uuid)
+void BlockchainClient::GeneratePublicKey()
 {
-	m_uuid.fromStr(_uuid.c_str());
+	shaGenerator.update(m_uuid.str());
+	shaPublicKey = SHA256::toString(shaGenerator.digest());
+
+	spdlog::info("Public Key: {0}", shaPublicKey);
+}
+
+void BlockchainClient::GeneratePrivateKey()
+{
+	shaGenerator.update(shaPublicKey);
+	spdlog::info("Private Key: {0}", SHA256::toString(shaGenerator.digest()));
 }
