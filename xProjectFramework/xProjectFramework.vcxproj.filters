@@ -30,6 +30,9 @@
     <ClInclude Include="xProjectMessageType.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="xProjectPeerInfo.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Temporary.cpp">

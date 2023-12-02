@@ -16,43 +16,54 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 	switch (_handleMessage.m_header.m_type)
 	{
 	case Net::MessageType::PingRequest:
-		spdlog::info("[Server] Handle Ping Request");
+		{
+			spdlog::info("[Server] Handle Ping Request");
 
-		responseMessage.m_header.m_type = Net::MessageType::PingResponse;
-		responseMessage << "Ping OK!";
+			responseMessage.m_header.m_type = Net::MessageType::PingResponse;
+			responseMessage << "Ping OK!";
 
-		break;
+			break;
+		}
 	case Net::MessageType::RegistrationRequest:
-		spdlog::info("[Server] Handle Registration Request");
-		
-		responseMessage.m_header.m_type = Net::MessageType::RegistrationResponse;
+		{
+			spdlog::info("[Server] Handle Registration Request");
 
-		// Temporary
-		m_availableÑlientsVec.push_back(_handleClient);
+			responseMessage.m_header.m_type = Net::MessageType::RegistrationResponse;
 
-		break;
+			Net::PeerInfo registrationPeer;
+			registrationPeer.m_addressPeer = _handleClient->getAddress();
+			registrationPeer.m_portPeer = _handleClient->getPort();
+
+			m_availableÑlientsVec.push_back(_handleClient);
+			m_availableÑlientsMap.insert({ _handleClient, registrationPeer });
+
+			break;
+		}
 	case Net::MessageType::GetPeerRequest:
-		spdlog::info("[Server] Handle GetPeer Request");
+		{
+			spdlog::info("[Server] Handle GetPeer Request");
 
-		responseMessage.m_header.m_type = Net::MessageType::GetPeerResponse;
+			responseMessage.m_header.m_type = Net::MessageType::GetPeerResponse;
 
-		if (m_availableÑlientsVec.size() > 1) {
-			// Temporary (Convert to JSON)
-			for (std::shared_ptr<Net::Connection> i : m_availableÑlientsVec) {
-				if (i->getPort() != _handleClient->getPort()) {
-					responseMessage << i->getAddress() << ":" << std::to_string(i->getPort());
+			if (m_availableÑlientsVec.size() > 1) {
+				// Temporary (Convert to JSON)
+				for (std::shared_ptr<Net::Connection> i : m_availableÑlientsVec) {
+					if (i->getPort() != _handleClient->getPort()) {
+						responseMessage << i->getAddress();
+						//responseMessage << std::to_string(i->getPort());
+					}
 				}
 			}
-		}
-		else {
-			responseMessage << "None";
-		}
+			else {
+				responseMessage << "None";
+			}
 
 #ifdef _DEBUG
-		spdlog::debug("BODY: {0}", responseMessage.getStr());
+			spdlog::debug("BODY: {0}", responseMessage.getStr());
 #endif // DEBUG
-		
-		break;
+
+			break;
+		}
 	}
 
 	_handleClient->Send(responseMessage);
@@ -64,5 +75,6 @@ void RouteManager::HandleConnect(std::shared_ptr<Net::Connection> _handleClient)
 
 void RouteManager::HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient)
 {
+	m_availableÑlientsVec.erase(std::remove(m_availableÑlientsVec.begin(), m_availableÑlientsVec.end(), _handleClient), m_availableÑlientsVec.end());
 	m_availableÑlientsMap.erase(_handleClient);
 }

@@ -2,6 +2,36 @@
 #include "xProjectMiner.hpp"
 
 #include "xProjectBlockchainClient.hpp"
+#include "xProjectBlockchainServer.hpp"
+
+void ClientUpdate(std::shared_ptr<BlockchainClient> _client) {
+	while (true)
+	{
+		if (_client->IsConnected()) {
+			if (!_client->Incoming().empty()) {
+
+				Net::Message message = _client->Incoming().pop_back().m_remoteMsg;
+
+				spdlog::info("{0}", message.getStr());
+				switch (message.Type())
+				{
+				case Net::MessageType::PingResponse:
+					break;
+				case Net::MessageType::RegistrationResponse:
+					break;
+				case Net::MessageType::GetPeerResponse:
+					_client->Reconnect(message.getStr(), 20056);
+					
+					Net::Message messagePing;
+					messagePing.m_header.m_type = Net::MessageType::PingRequest;
+					_client->Send(messagePing);
+					break;
+				}
+
+			}
+		}
+	}
+}
 
 int main(int argv, char** argc) {
 
@@ -16,34 +46,20 @@ int main(int argv, char** argc) {
 
 		Miner miner(blockchain);
 
-		BlockchainClient client;
-		client.Connect("127.0.0.1", 20055);
-		client.PingServer();
-		client.RegistrationServer();
-		client.GetPeerAddress();
+		std::shared_ptr<BlockchainClient> client = std::make_shared<BlockchainClient>();
+		client->Connect("127.0.0.1", 20055);
+		client->PingServer();
+		client->RegistrationServer();
+		client->GetPeerAddress();
+
+		std::thread updateClientThread(ClientUpdate, client);
+
+		BlockchainServer* server = new BlockchainServer("127.0.0.1", 20057);
+		server->Start();
 
 		while (true)
 		{
-			if (client.IsConnected()) {
-				if (!client.Incoming().empty()) {
-
-					Net::Message message = client.Incoming().pop_back().m_remoteMsg;
-
-					spdlog::info("{0}", message.getStr());
-					switch (message.Type())
-					{
-					case Net::MessageType::PingResponse:
-						break;
-					case Net::MessageType::RegistrationResponse:
-						break;
-					case Net::MessageType::GetPeerResponse:
-						client.Disconnect();
-						client.Connect("127.0.0.1", std::strtol(message.getStr().c_str(), nullptr, NULL));
-						break;
-					}
-
-				}
-			}
+			server->Update();
 		}
 	}
 	catch (const std::exception& _error)

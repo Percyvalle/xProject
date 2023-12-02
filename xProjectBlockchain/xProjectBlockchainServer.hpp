@@ -10,5 +10,9 @@ private:
 public:
 	explicit BlockchainServer(const std::string& _address, const uint16_t _port);
 	virtual ~BlockchainServer();
+
+	void HandleMessage(std::shared_ptr<Net::Connection> _handleClient, Net::Message _handleMessage);
+	void HandleConnect(std::shared_ptr<Net::Connection> _handleClient);
+	void HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient);
 };
 

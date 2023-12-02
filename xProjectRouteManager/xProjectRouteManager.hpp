@@ -1,14 +1,11 @@
 #pragma once
 
 #include "xProjectServerInterface.hpp"
-
-#include <sha256/SHA256.h>
+#include "xProjectPeerInfo.hpp"
 
 class RouteManager : public Net::ServerInterface {
 private:
-	std::unordered_map<std::shared_ptr<Net::Connection>, std::string> m_available—lientsMap;
-	
-	// Temporary
+	std::unordered_map<std::shared_ptr<Net::Connection>, Net::PeerInfo> m_available—lientsMap;
 	std::vector<std::shared_ptr<Net::Connection>> m_available—lientsVec;
 
 public:

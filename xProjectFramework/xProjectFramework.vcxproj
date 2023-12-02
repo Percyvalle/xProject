@@ -140,6 +140,7 @@
     <ClInclude Include="xProjectClientInterface.hpp" />
     <ClInclude Include="xProjectConnection.hpp" />
     <ClInclude Include="xProjectMessageType.hpp" />
+    <ClInclude Include="xProjectPeerInfo.hpp" />
     <ClInclude Include="xProjectQueue.hpp" />
     <ClInclude Include="xProjectServerInterface.hpp" />
   </ItemGroup>

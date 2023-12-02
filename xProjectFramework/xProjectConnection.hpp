@@ -108,7 +108,7 @@ namespace Net
 					}
 					else {
 						spdlog::warn("Read Header Error: {0}", _error_code.message());
-						spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						//spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
 						Disconnect();
 					}
 				}
@@ -128,7 +128,7 @@ namespace Net
 					}
 					else {
 						spdlog::warn("Read Header Error: {0}", _error_code.message());
-						spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						//spdlog::warn("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
 						Disconnect();
 					}					
 				}
@@ -153,7 +153,7 @@ namespace Net
 					}
 					else {
 						spdlog::warn("Write Header Error: {0}", _error_code.message());
-						spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						//spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
 						Disconnect();
 					}
 				}
@@ -172,7 +172,7 @@ namespace Net
 					}
 					else {
 						spdlog::warn("Write Body Error: {0}", _error_code.message());
-						spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
+						//spdlog::info("Socket Error: {0}:{1}", m_conSocket.remote_endpoint().address().to_string(), m_conSocket.remote_endpoint().port());
 						Disconnect();
 					}
 				}

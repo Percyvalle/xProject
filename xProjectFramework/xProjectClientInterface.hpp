@@ -42,6 +42,24 @@ namespace Net {
 			return true;
 		}
 
+		bool Reconnect(const std::string& _address, const uint16_t& _port) {
+			try
+			{
+				Disconnect();
+
+				m_messageIn.clear();
+
+				Connect(_address, _port);
+			}
+			catch (const std::exception& _error)
+			{
+				spdlog::error("[Client] Reconnect Error: {0}", _error.what());
+				return false;
+			}
+
+			return true;
+		}
+
 		void Disconnect() {
 			if (IsConnected()) {
 				m_uniqueConnection->Disconnect();
