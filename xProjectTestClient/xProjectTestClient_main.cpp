@@ -47,9 +47,8 @@ int main(int argv, char** argc) {
 
 	TestClient client;
 	client.Connect("127.0.0.1", 20055);
+	client.TestPingServerMessage();
 	client.TestRegistrationServerMessage();
-	client.TestPingServerMessage();
-	client.TestPingServerMessage();
 
 	TestServer server("127.0.0.1", 20056);
 	server.Start();
