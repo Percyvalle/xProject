@@ -55,7 +55,9 @@ namespace Net {
 				[this](boost::system::error_code _error_code, boost::asio::ip::tcp::socket _socket)
 				{
 					if (!_error_code)
-					{	
+					{
+						spdlog::info("[Server] New Connection: {0}:{1}", _socket.remote_endpoint().address().to_string(), _socket.remote_endpoint().port());
+						
 						std::shared_ptr<Net::Connection> clientConnection = std::make_shared<Net::Connection>(
 							Net::Connection::OwnerConnection::Server, m_mainContext, std::move(_socket), m_messageIn);
 

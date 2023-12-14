@@ -71,13 +71,10 @@ void RouteManager::HandleMessage(std::shared_ptr<Net::Connection> _handleClient,
 
 void RouteManager::HandleConnect(std::shared_ptr<Net::Connection> _handleClient)
 {
-	spdlog::info("[Server] New Connection: {0}:{1}", _handleClient->getAddress(), _handleClient->getPort());
 }
 
 void RouteManager::HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient)
 {
-	spdlog::debug("[Server] Disconnect");
-
 	m_availableÑlientsVec.erase(std::remove(m_availableÑlientsVec.begin(), m_availableÑlientsVec.end(), _handleClient), m_availableÑlientsVec.end());
 	m_availableÑlientsMap.erase(_handleClient);
 }

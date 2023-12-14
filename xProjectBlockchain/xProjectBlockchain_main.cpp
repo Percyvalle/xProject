@@ -22,7 +22,9 @@ void ClientUpdate(std::shared_ptr<BlockchainClient> _client) {
 				case Net::MessageType::GetPeerResponse:
 					_client->Reconnect(message.getStr(), 20056);
 					
-					_client->PingServer();
+					Net::Message messagePing;
+					messagePing.m_header.m_type = Net::MessageType::PingRequest;
+					_client->Send(messagePing);
 					break;
 				}
 
@@ -44,9 +46,6 @@ int main(int argv, char** argc) {
 
 		Miner miner(blockchain);
 
-		std::shared_ptr<BlockchainServer> server = std::make_shared<BlockchainServer>("127.0.0.1", 20057);
-		server->Start();
-
 		std::shared_ptr<BlockchainClient> client = std::make_shared<BlockchainClient>();
 		client->Connect("127.0.0.1", 20055);
 		client->PingServer();
@@ -54,6 +53,9 @@ int main(int argv, char** argc) {
 		client->GetPeerAddress();
 
 		std::thread updateClientThread(ClientUpdate, client);
+
+		BlockchainServer* server = new BlockchainServer("127.0.0.1", 20057);
+		server->Start();
 
 		while (true)
 		{
