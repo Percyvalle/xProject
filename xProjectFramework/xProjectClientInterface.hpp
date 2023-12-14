@@ -18,8 +18,6 @@ namespace Net {
 	private:
 		Xp::Queue<Net::OwnerMessage> m_messageIn;
 
-		std::unordered_map<Net::MessageType, std::function<void()>>	m_callbackMap;
-
 	public:
 		bool Connect(const std::string& _address, const uint16_t& _port) {
 			try
@@ -82,10 +80,6 @@ namespace Net {
 			if (IsConnected()) {
 				m_uniqueConnection->Send(_message);
 			}
-		}
-
-		void AddHandleMessage(std::function<void()> _callback, MessageType _type) {
-			m_callbackMap[_type] = _callback;
 		}
 
 		Xp::Queue<Net::OwnerMessage>& Incoming() {
