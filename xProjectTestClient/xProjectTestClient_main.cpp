@@ -1,4 +1,3 @@
-
 #include "xProjectClientInterface.hpp"
 #include "xProjectServerInterface.hpp"
 
@@ -31,7 +30,7 @@ public:
 	}
 
 	void HandleConnect(std::shared_ptr<Net::Connection> _handleClient) {
-		spdlog::info("Connect: {0}:{1}", _handleClient->getAddress(), _handleClient->getPort());
+		spdlog::info("Connect: {0}:{1}", _handleClient->getRemoteAddress(), _handleClient->getRemotePort());
 	}
 
 	void HandleDisconnect(std::shared_ptr<Net::Connection> _handleClient) {

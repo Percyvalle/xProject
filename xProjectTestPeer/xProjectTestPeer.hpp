@@ -3,6 +3,8 @@
 #include "xProjectClientInterface.hpp"
 #include "xProjectServerInterface.hpp"
 
+using json = nlohmann::json;
+
 class TestServerPeer : public Net::ServerInterface {
 private:
 public:
@@ -19,9 +21,55 @@ public:
 class TestClientPeer : public Net::ClientInterface {
 private:
 public:
-	void RegistrationPeerMessage() {}
+	void RegistrationPeerMessage() {	
+		json regMessageJson;
+		regMessageJson["addr"] = m_uniqueConnection->getLocalAddress();
+		regMessageJson["port"] = m_uniqueConnection->getLocalAddress();
+		
+		Net::Message regMessage;
+		regMessage.m_header.m_type = Net::MessageType::RegistrationRequest;
+		regMessage << regMessageJson.dump();
 
-	void GetPeerMessage() {}
+		Send(regMessage);
+	}
+
+	void GetPeerMessage() {
+		Net::Message getPeerMessage;
+		getPeerMessage.m_header.m_type = Net::MessageType::GetPeerRequest;
+
+		Send(getPeerMessage);
+	}
+
+	void PingServer() {
+		Net::Message pingMessage;
+		pingMessage.m_header.m_type = Net::MessageType::PingRequest;
+
+		Send(pingMessage);
+	}
+
+	void Update() {
+		while (true)
+		{
+			if (IsConnected()) {
+				if (!Incoming().empty()) {
+
+					Net::Message message = Incoming().pop_back().m_remoteMsg;
+
+					spdlog::info("{0}", message.getStr());
+					switch (message.Type())
+					{
+					case Net::MessageType::PingResponse:
+						break;
+					case Net::MessageType::RegistrationResponse:
+						break;
+					case Net::MessageType::GetPeerResponse:
+						break;
+					}
+
+				}
+			}
+		}
+	}
 };
 
 class TestPeer {

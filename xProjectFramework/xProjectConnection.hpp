@@ -80,12 +80,20 @@ namespace Net
 			);
 		}
 
-		std::string getAddress() {
+		std::string getRemoteAddress() {
 			return m_conSocket.remote_endpoint().address().to_string();
 		}
 
-		uint16_t getPort() {
+		uint16_t getRemotePort() {
 			return m_conSocket.remote_endpoint().port();
+		}
+
+		std::string getLocalAddress() {
+			return m_conSocket.local_endpoint().address().to_string();
+		}
+
+		uint16_t getLocalPort() {
+			return m_conSocket.local_endpoint().port();
 		}
 
 	private:

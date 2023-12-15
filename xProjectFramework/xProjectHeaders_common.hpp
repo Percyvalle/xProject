@@ -11,10 +11,9 @@
 #include <deque>
 #include <mutex>
 
-#include <spdlog/spdlog.h>
-
-#include <inifile-cpp/inicpp.h>
-
 #include <boost/asio.hpp>
 
 #include <uuid/uuid_v4.h>
+#include <spdlog/spdlog.h>
+#include <nlohmann/json.hpp>
+#include <inifile-cpp/inicpp.h>

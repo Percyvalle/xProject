@@ -1,4 +1,3 @@
-
 #include "xProjectMiner.hpp"
 
 #include "xProjectBlockchainClient.hpp"
